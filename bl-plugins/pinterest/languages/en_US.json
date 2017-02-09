@@ -1,0 +1,10 @@
+{
+	"plugin-data":
+	{
+		"name": "Pinterest Verfication",
+		"description": "Plugin to add the verification meta tag for Pinterest. See http://business.pinterest.com/verify/."
+	},
+	"pinterest-verification": "Pinterest Verification",
+	"pinterest-verification-code": "Pinterest Verification Code",
+	"complete-this-field-with-the-pinterest-verification-code": "Complete this field with the Pinterest verification code."
+}

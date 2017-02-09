@@ -1,0 +1,11 @@
+{
+	"plugin-data":
+	{
+		"name": "Gitter",
+		"description": "Ce plugin est un moyen d'incorporer Gitter dans votre site web tout simplement en quelque lignes de code JavaScript."
+	},
+	"room": "Room",
+	"activation-element": "Activation Element",
+	"target-element": "Target Element",
+	"optionnel": "Optionnel"
+}
