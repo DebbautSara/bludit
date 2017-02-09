@@ -6,7 +6,6 @@ class pluginPages extends Plugin {
 	{
 		$this->dbFields = array(
 			'homeLink'=>1,
-			'children'=>1,
 			'label'=>'Pages'
 		);
 	}
@@ -24,12 +23,6 @@ class pluginPages extends Plugin {
 		$html .= '<input type="hidden" name="homeLink" value="0">';
 		$html .= '<input name="homeLink" id="jshomeLink" type="checkbox" value="1" '.($this->getDbField('homeLink')?'checked':'').'>';
 		$html .= '<label class="forCheckbox" for="jshomeLink">'.$Language->get('Show home link').'</label>';
-		$html .= '</div>';
-		
-		$html .= '<div>';
-		$html .= '<input type="hidden" name="children" value="0">';
-		$html .= '<input name="children" id="children" type="checkbox" value="1" '.($this->getDbField('children')?'checked':'').'>';
-		$html .= '<label class="forCheckbox" for="jschildren">'.$Language->get('Show children').'</label>';
 		$html .= '</div>';
 
 		return $html;
@@ -69,29 +62,25 @@ class pluginPages extends Plugin {
 				$html .= '<li class="parent">';
 				$html .= '<a class="parent'.( ($parent->key()==$Url->slug())?' active':'').'" href="'.$parent->permalink().'">'.$parent->title().'</a>';
 
-				// Show children elements?
-				if($this->getDbField('children')) {
+				// Check if the parent has children
+				if(isset($pagesParents[$parent->key()]))
+				{
+					$children = $pagesParents[$parent->key()];
 
-					// Check if the parent has children
-					if(isset($pagesParents[$parent->key()]))
+					// Print children
+					$html .= '<ul class="children">';
+					foreach($children as $child)
 					{
-						$children = $pagesParents[$parent->key()];
-
-						// Print children
-						$html .= '<ul class="children">';
-						foreach($children as $child)
+						// Check if the child is published
+						if( $child->published() )
 						{
-							// Check if the child is published
-							if( $child->published() )
-							{
-								$html .= '<li class="child">';
-								$html .= '<a class="'.( ($child->key()==$Url->slug())?' active':'').'" href="'.$child->permalink().'">'.$child->title().'</a>';
-								$html .= '</li>';
-							}
+							$html .= '<li class="child">';
+							$html .= '<a class="'.( ($child->key()==$Url->slug())?' active':'').'" href="'.$child->permalink().'">'.$child->title().'</a>';
+							$html .= '</li>';
 						}
-						$html .= '</ul>';
 					}
-				}	
+					$html .= '</ul>';
+				}
 
 				$html .= '</li>';
 			}
